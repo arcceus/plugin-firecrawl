@@ -6,15 +6,16 @@ import {
     IAgentRuntime,
     Memory,
     State,
-    generateText,
-    composeContext,
+    // generateText,
+    // composeContext,
     parseJSONObjectFromText,
+    ModelType,
 } from "@elizaos/core";
 import { validateFirecrawlConfig } from "../environment";
 import { getSearchDataExamples } from "../examples";
 import { createFirecrawlService } from "../services";
 import { searchDataPrompt } from "../templates";
-import { ModelClass } from "@elizaos/core";
+// import { ModelClass } from "@elizaos/core";
 
 export const getSearchDataAction: Action = {
     name: "WEB_SEARCH",
@@ -57,7 +58,7 @@ export const getSearchDataAction: Action = {
 
             elizaLogger.success(`Successfully fectched data`);
 
-            const responseText = await generateText({
+            const responseText = await runtime.useModel(ModelType.OBJECT_LARGE, {
                 runtime,
                 context: `This was the user question: ${message.content.text}
 
@@ -70,7 +71,7 @@ export const getSearchDataAction: Action = {
                         Do not add any other text or comments to the response just the answer to the question
                         Remove \n \r, special characters and html tags from the response
                         `,
-                modelClass: ModelClass.SMALL,
+                // modelClass: ModelClass.SMALL,
                 customSystemPrompt: searchDataPrompt,
             });
 

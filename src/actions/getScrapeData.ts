@@ -6,14 +6,15 @@ import {
     IAgentRuntime,
     Memory,
     State,
-    generateText,
+    // generateText,
+    ModelType,
 } from "@elizaos/core";
 import { validateFirecrawlConfig } from "../environment";
 import { getScrapedDataExamples } from "../examples";
 import { createFirecrawlService } from "../services";
 import { extractUrl } from "../utils";
 import { scrapeDataPrompt } from "../templates";
-import { ModelClass } from "@elizaos/core";
+// import { ModelClass } from "@elizaos/core";
 
 export const getScrapeDataAction: Action = {
     name: "FIRECRAWL_GET_SCRAPED_DATA",
@@ -68,7 +69,7 @@ export const getScrapeDataAction: Action = {
             console.log("Final scrapeData: ", scrapeData);
             elizaLogger.success(`Successfully fectched crawl data`);
 
-            const responseText = await generateText({
+            const responseText = await runtime.useModel(ModelType.OBJECT_LARGE, {
                 runtime,
                 context: `This was the user question: ${message.content.text}
 
@@ -81,7 +82,7 @@ export const getScrapeDataAction: Action = {
                         Do not add any other text or comments to the response just the answer to the question
                         Remove \n \r, special characters and html tags from the response
                         `,
-                modelClass: ModelClass.SMALL,
+                // modelClass: ModelClass.SMALL,
                 customSystemPrompt: scrapeDataPrompt,
             });
 
