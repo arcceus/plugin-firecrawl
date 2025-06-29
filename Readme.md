@@ -1,12 +1,11 @@
 # Firecrawl Plugin
 
-@arcceus
+@arcceus here
+
 Anyone planning to use ts its garbage and the plugin wont work due to recent changes + the scrapper isnt all that fancy as it seems.
 But still if you want use it.
 What you can do is just take actions from plugin and manually add them in runtime through registerAction where your character is initialzed.
 
-
-We've created a service wrapper for the Firecrawl API that provides two main functionalities: web scraping and crawling. Here's a breakdown of how it works:
 
 ## Core Features
 
